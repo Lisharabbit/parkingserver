@@ -1,0 +1,27 @@
+<head>
+    <meta charset="UTF-8">
+    <title>detail</title>
+</head>
+
+
+
+<body>
+    <li>
+      {% for item in {{datalist}} %}<li>{{ item }}</li>{% endfor %}
+    </li>
+
+    <script type="text/javascript">
+            function getDataAttribute() {
+                $.ajax({
+                    url: "./detail",
+                    type: "GET",
+                    data: {
+                    bay_id:'4533'
+                }
+            }).done(function(data) {
+                alert("Retrieved " + data.length + " records from the datalist!"))};
+
+            getDataAttribute();
+    </script>
+
+</body>

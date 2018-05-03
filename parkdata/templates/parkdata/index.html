@@ -1,0 +1,32 @@
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+
+
+</head>
+
+<body>
+
+        <li>
+            {% for item in {{top5_data_list}} %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </li>
+
+         <script type="text/javascript" >
+
+            function getData() {
+                $.ajax({
+                        url: "./index",
+                        type: "GET",
+                        data: {
+                        "bay_id":1
+                        }
+                }).done(function(data) {
+                 alert("Retrieved " + data.length + " records from the dataset!"))};
+
+             getData();
+
+
+         </script>
+</body>
