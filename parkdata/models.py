@@ -46,6 +46,19 @@ class Weekly1(models.Model):
         db_table = 'Weekly1'
 
 
+class Weekly2(models.Model):
+    id = models.IntegerField(db_column='Id', primary_key=True)  # Field name made lowercase.
+    blockid = models.IntegerField(db_column='BlockId')  # Field name made lowercase.
+    period = models.IntegerField(db_column='Period')  # Field name made lowercase.
+    weekday = models.IntegerField(db_column='Weekday')  # Field name made lowercase.
+    prob = models.FloatField(db_column='Prob')  # Field name made lowercase.
+    predicted = models.FloatField(db_column='Predicted')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'Weekly2'
+
+
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=80)
 

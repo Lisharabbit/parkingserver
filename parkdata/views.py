@@ -9,7 +9,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 import json
 from django.core import serializers
-from .models import Parking,Blockquery,Finetreepredict,Weekly1
+from .models import Parking,Blockquery,Weekly1,Weekly2
 
 @csrf_exempt
 def run_job(request):
@@ -36,37 +36,11 @@ def run_job(request):
 
 
 
-# def index(request):
-#     top5_data_list = Parking.objects.order_by('-bay_id')[:1].values()
-#     top5_data_list = json.dumps(top5_data_list) # dict to json
-#     top5_data_list_json = serializers.serialize('json', top5_data_list)
-#     # context = {
-#     # 'top5_data_list': top5_data_list_json,
-#     # }
-#
-#     # context = top5_data_list_json
-#
-#     # context = context.get('top5_data_list')
-#     context = top5_data_list_json
-#     context = json.loads(context)  #json to list
-#     # first_data = context[0]
-#     # context = context['fields']
-#     # return render('parkdata/index.html', context)
-#     # typeofdata = str(type(context))
-#     return HttpResponse(context)
-#     # return JsonResponse(data=context, status=status.HTTP_200_OK,safe=False)
 
 @csrf_exempt
 def predict(request):
-    # 判断请求头是否为json
-    # if request.content_type != 'application/json':
-    #     # 如果不是的话，返回405
-    #     return HttpResponse('only support json data', status=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
-    # 判断是否为Post 请求
     if request.method == 'GET':
         print(str(type(request)))
-        # # period_m =requestdata['period_m']
-        # # period_h = requestdata['period_h']
         streetMarker = request.GET.get('streetMarker')
         print(streetMarker)
         # print(type(streetMarker))
@@ -74,22 +48,22 @@ def predict(request):
         if blockidObject.exists():
             print("right street marker!")
             blockidObject_values = blockidObject.values_list
-            print(blockidObject_values)
+            # print(blockidObject_values)
             blockidObject_blockid = blockidObject.values('blockid')[0]['blockid']
 
-            print(blockidObject_blockid)
-            print(type(blockidObject_blockid))
+            # print(blockidObject_blockid)
+            # print(type(blockidObject_blockid))
 
-            predictObject = Weekly1.objects.filter(blockid=blockidObject_blockid,period_m =0)
+            predictObject = Weekly2.objects.filter(blockid=blockidObject_blockid)
             predictedValues = predictObject.values('predicted','id','weekday')
-            print(predictedValues)
+            # print(predictedValues)
             count = 0
             list=[]
             for eachobject in predictedValues:
                 # print(eachobject)
                 count = count+1
                 list.append(eachobject['predicted'])
-            print(count)
+            # print(count)
 
             mon={'mon':list[24:47]}
             tue={'tue':list[48:71]}
@@ -101,7 +75,7 @@ def predict(request):
             dict={'prob':[mon,tue,wed,thu,fri,sat,sun]}
             dict = json.dumps(dict)
 
-            print(dict)
+            # print(dict)
         else:
             return HttpResponse("wrong street marker")
         # blockidObject_blockid = blockidObject.values('blockid')

@@ -1,8 +1,6 @@
 
 from django.urls import include, path
 from django.conf.urls import url
-from rest_framework import routers, serializers, viewsets
-# from api import views
 from . import views
 from . import models
 
