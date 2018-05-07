@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c91fa762-d0f0-40d4-bf26-b15d72db4c3d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parkdata/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkdata/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parkdata/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkdata/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parkdata/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkdata/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parkdata/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkdata/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parkingServer/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkingServer/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,8 +28,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/parkingServer/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="142" lean-forward="true" selection-start-line="142" selection-end-line="142" />
+            <state relative-caret-position="285">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
             </state>
           </provider>
         </entry>
@@ -50,8 +46,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parkdata/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="107" column="40" selection-start-line="107" selection-start-column="40" selection-end-line="107" selection-end-column="40" />
+            <state relative-caret-position="418">
+              <caret line="58" column="36" lean-forward="true" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="36" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
               </folding>
@@ -117,10 +113,9 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1493" />
-    <option name="height" value="1027" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1680" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -367,7 +362,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1493" height="1027" extended-state="0" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -376,8 +371,8 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.33010754" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32903227" />
       <window_info anchor="bottom" id="Python Console" order="9" weight="0.32893288" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.30967742" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2053756" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.29538462" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18192919" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -677,9 +672,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parkdata/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$USER_HOME$/Google Drive/Study/2018 s1/computing project/mysqlDb/importDataToDB.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
@@ -707,6 +699,9 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/parkdata/models.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/parkdata/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -714,13 +709,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parkdata/models.py">
+    <entry file="file://$PROJECT_DIR$/parkdata/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/parkdata/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="107" column="40" selection-start-line="107" selection-start-column="40" selection-end-line="107" selection-end-column="40" />
+        <state relative-caret-position="418">
+          <caret line="58" column="36" lean-forward="true" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="36" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
           </folding>
@@ -729,8 +724,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/parkingServer/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="142" lean-forward="true" selection-start-line="142" selection-end-line="142" />
+        <state relative-caret-position="285">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
         </state>
       </provider>
     </entry>
