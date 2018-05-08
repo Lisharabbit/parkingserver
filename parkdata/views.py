@@ -65,13 +65,15 @@ def predict(request):
                 list.append(eachobject['predicted'])
             # print(count)
 
-            mon={'mon':list[24:47]}
-            tue={'tue':list[48:71]}
-            wed={'wed':list[72:95]}
-            thu={'thu':list[96:119]}
-            fri={'fri':list[120:143]}
-            sat={'sat':list[144:167]}
-            sun={'sun':list[0:23]}
+            # print(list)
+
+            mon={'mon':list[24:48]}
+            tue={'tue':list[48:72]}
+            wed={'wed':list[72:96]}
+            thu={'thu':list[96:120]}
+            fri={'fri':list[120:144]}
+            sat={'sat':list[144:168]}
+            sun={'sun':list[0:24]}
             dict={'prob':[mon,tue,wed,thu,fri,sat,sun]}
             dict = json.dumps(dict)
 
