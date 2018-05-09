@@ -9,7 +9,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 import json
 from django.core import serializers
-from .models import Parking,Blockquery,Weekly1,Weekly2
+from .models import Parking,Blockquery,Weekly1,Weekly2,Lastmondata,Lasttuedata,Lastweddata,Lastthudata,Lastfridata,Lastsatdata,Lastsundata
+
 
 @csrf_exempt
 def run_job(request):
@@ -114,6 +115,66 @@ def predict(request):
 
 
     return HttpResponse(dict,content_type = "application/json")
+
+@csrf_exempt
+def lastWeekdata(request):
+    if request.method == 'GET':
+        # print(str(type(request)))
+        bayid = request.GET.get('bayid')
+        monobj = Lastmondata.objects.filter(bay_id=bayid).values('occupiedrate')
+        tueobj = Lasttuedata.objects.filter(bay_id=bayid).values('occupiedrate')
+        wedobj = Lastweddata.objects.filter(bay_id=bayid).values('occupiedrate')
+        thuobj = Lastthudata.objects.filter(bay_id=bayid).values('occupiedrate')
+        friobj = Lastfridata.objects.filter(bay_id=bayid).values('occupiedrate')
+        satobj = Lastsatdata.objects.filter(bay_id=bayid).values('occupiedrate')
+        sunobj = Lastsundata.objects.filter(bay_id=bayid).values('occupiedrate')
+
+        ojblist =[monobj,tueobj,wedobj,thuobj,friobj,satobj,sunobj]
+        ratelist = []
+        for eachobj in ojblist:
+            if eachobj.exists():
+                eachrate = eachobj[0]['occupiedrate']
+                ratelist = ratelist + [eachrate]
+            else:
+                eachrate = 0
+                ratelist = ratelist + [eachrate]
+        # print(ratelist)
+        problistdict = {'prob': ratelist}
+        problistdictjson = json.dumps(problistdict)
+
+        # if monobj.exists():
+        #     monrate = Lastmondata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
+        #     print(monrate)
+        #     print(type(monrate))
+        # else:
+        #     monrate = 0
+        # if tueobj.exists():
+        #     tuerate = Lastmondata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
+        #     print(monrate)
+        #     print(type(monrate))
+        # else:
+        #     monrate = 0
+        # if tueobj.exists():
+        #     tuerate = Lastmondata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
+        #     print(monrate)
+        #     print(type(monrate))
+        # else:
+        #     monrate = 0
+
+
+        # tuerate = Lasttuedata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
+        # wedrate = Lastweddata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
+        # thurate = Lastthudata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
+        # frirate = Lastfridata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
+        # satrate = Lastsatdata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
+        # sunrate = Lastsundata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
+        #
+        # problist =[monrate,tuerate,wedrate,thurate,frirate,satrate,sunrate]
+        #
+        # problistdict = {'prob': problist}
+        # problistdictjson = json.dumps(problistdict)
+
+    return HttpResponse(problistdictjson,content_type = "application/json")
 
 
 def detail(request, parkingdata_id):

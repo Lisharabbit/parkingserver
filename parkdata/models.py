@@ -177,3 +177,73 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
+
+
+class Lastfridata(models.Model):
+    id = models.IntegerField(primary_key=True)
+    bay_id = models.IntegerField()
+    occupiedrate = models.FloatField(db_column='occupiedRate')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'lastFriData'
+
+
+class Lastmondata(models.Model):
+    id = models.IntegerField(primary_key=True)
+    bay_id = models.IntegerField()
+    occupiedrate = models.FloatField(db_column='occupiedRate')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'lastMonData'
+
+
+class Lastsatdata(models.Model):
+    id = models.IntegerField(primary_key=True)
+    bay_id = models.IntegerField()
+    occupiedrate = models.FloatField(db_column='occupiedRate')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'lastSatData'
+
+
+class Lastsundata(models.Model):
+    id = models.IntegerField(primary_key=True)
+    bay_id = models.IntegerField()
+    occupiedrate = models.FloatField(db_column='occupiedRate')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'lastSunData'
+
+
+class Lastthudata(models.Model):
+    id = models.IntegerField(primary_key=True)
+    bay_id = models.IntegerField()
+    occupiedrate = models.FloatField(db_column='occupiedRate')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'lastThuData'
+
+
+class Lasttuedata(models.Model):
+    id = models.IntegerField(primary_key=True)
+    bay_id = models.IntegerField()
+    occupiedrate = models.FloatField(db_column='occupiedRate')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'lastTueData'
+
+
+class Lastweddata(models.Model):
+    id = models.IntegerField(primary_key=True)
+    bay_id = models.IntegerField()
+    occupiedrate = models.FloatField(db_column='occupiedRate')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'lastWedData'

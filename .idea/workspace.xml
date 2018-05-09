@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c91fa762-d0f0-40d4-bf26-b15d72db4c3d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/parkingServer/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkingServer/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/pip-selfcheck.json" beforeDir="false" afterPath="$PROJECT_DIR$/venv/pip-selfcheck.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parkdata/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkdata/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parkdata/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkdata/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parkdata/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkdata/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parkdata/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkdata/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,18 +16,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/parkingServer$importDataToDB.coverage" NAME="importDataToDB Coverage Results" MODIFIED="1525502868389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Google Drive/Study/2018 s1/computing project/mysqlDb" />
+    <SUITE FILE_PATH="coverage/parkingServer$importDataToDB.coverage" NAME="importDataToDB Coverage Results" MODIFIED="1525844247858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Google Drive/Study/2018 s1/computing project/mysqlDb" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parkingServer/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="37">
-              <caret line="54" column="44" lean-forward="true" selection-start-line="54" selection-start-column="44" selection-end-line="54" selection-end-column="44" />
+            <state relative-caret-position="1215">
+              <caret line="81" column="22" lean-forward="true" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -32,17 +35,20 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parkdata/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="32" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
+            <state relative-caret-position="150">
+              <caret line="10" column="67" selection-start-line="10" selection-start-column="67" selection-end-line="10" selection-end-column="67" />
+              <folding>
+                <element signature="e#1#38#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/parkdata/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="68" selection-start-line="68" selection-end-line="68" />
+            <state relative-caret-position="393">
+              <caret line="140" column="20" selection-start-line="140" selection-end-line="141" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
               </folding>
@@ -53,11 +59,20 @@
       <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parkdata/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="71" selection-start-line="1" selection-start-column="71" selection-end-line="1" selection-end-column="71" />
+            <state relative-caret-position="30">
+              <caret line="2" lean-forward="true" selection-start-line="1" selection-start-column="72" selection-end-line="2" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parkdata/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="241" column="11" selection-start-line="241" selection-start-column="6" selection-end-line="241" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -70,6 +85,12 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>lastm</find>
+      <find>lastw</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -86,11 +107,11 @@
         <option value="$PROJECT_DIR$/parkdata/resources.py" />
         <option value="$PROJECT_DIR$/parkdata/serializers.py" />
         <option value="$PROJECT_DIR$/parkdata/models.py" />
-        <option value="$USER_HOME$/Google Drive/Study/2018 s1/computing project/mysqlDb/importDataToDB.py" />
-        <option value="$PROJECT_DIR$/parkdata/urls.py" />
-        <option value="$PROJECT_DIR$/parkdata/admin.py" />
-        <option value="$PROJECT_DIR$/parkdata/views.py" />
         <option value="$PROJECT_DIR$/parkingServer/settings.py" />
+        <option value="$USER_HOME$/Google Drive/Study/2018 s1/computing project/mysqlDb/importDataToDB.py" />
+        <option value="$PROJECT_DIR$/parkdata/admin.py" />
+        <option value="$PROJECT_DIR$/parkdata/urls.py" />
+        <option value="$PROJECT_DIR$/parkdata/views.py" />
       </list>
     </option>
   </component>
@@ -103,7 +124,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1440" />
     <option name="height" value="900" />
   </component>
@@ -352,16 +373,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="877" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32903227" />
-      <window_info anchor="bottom" id="Python Console" order="9" weight="0.32893288" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.33010754" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.49615383" />
+      <window_info anchor="bottom" id="Python Console" order="9" weight="0.32848486" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32969698" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.4569697" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21816881" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
@@ -628,13 +649,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parkdata/resources.py" />
-    <entry file="file://$PROJECT_DIR$/parkdata/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parkdata/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="750">
@@ -681,13 +695,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Google Drive/Study/2018 s1/computing project/mysqlDb/importDataToDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parkingServer/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -695,10 +702,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Google Drive/Study/2018 s1/computing project/mysqlDb/importDataToDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="81" column="36" selection-start-line="81" selection-start-column="36" selection-end-line="81" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parkingServer/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="81" column="22" lean-forward="true" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parkdata/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="241" column="11" selection-start-line="241" selection-start-column="6" selection-end-line="241" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/parkdata/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="71" selection-start-line="1" selection-start-column="71" selection-end-line="1" selection-end-column="71" />
+        <state relative-caret-position="30">
+          <caret line="2" lean-forward="true" selection-start-line="1" selection-start-column="72" selection-end-line="2" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
@@ -707,25 +735,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/parkdata/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="32" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
+        <state relative-caret-position="150">
+          <caret line="10" column="67" selection-start-line="10" selection-start-column="67" selection-end-line="10" selection-end-column="67" />
+          <folding>
+            <element signature="e#1#38#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parkdata/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="68" selection-start-line="68" selection-end-line="68" />
+        <state relative-caret-position="393">
+          <caret line="140" column="20" selection-start-line="140" selection-end-line="141" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parkingServer/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="54" column="44" lean-forward="true" selection-start-line="54" selection-start-column="44" selection-end-line="54" selection-end-column="44" />
         </state>
       </provider>
     </entry>
