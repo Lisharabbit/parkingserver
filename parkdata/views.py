@@ -174,6 +174,12 @@ def suggestbays(request):
         print(newperiod_h)
         if newperiod_m >= 30: #if minutes are more than 30, we compare the predicted values in next period, else we compare the current period
             newperiod_h+=1
+        if newperiod_h >23 : #if hours are more than 23, we compare the predicted values in next period next day, else we compare the current period
+            currentweekday +=1
+            newperiod_h = newperiod_h%24
+        if currentweekday >6:
+            currentweekday = currentweekday%7
+
 
 
         # 找相对应的block
