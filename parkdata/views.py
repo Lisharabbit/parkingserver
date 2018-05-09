@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 import json
+import time
 from django.core import serializers
 from .models import Parking,Blockquery,Weekly1,Weekly2,Lastmondata,Lasttuedata,Lastweddata,Lastthudata,Lastfridata,Lastsatdata,Lastsundata
 
@@ -175,6 +176,55 @@ def lastWeekdata(request):
         # problistdictjson = json.dumps(problistdict)
 
     return HttpResponse(problistdictjson,content_type = "application/json")
+
+@csrf_exempt
+def suggestbays(request):
+    import ast
+    dict = {}
+    reqdict = {}
+    if request.method == 'POST':
+        bayliststr = request.POST['baylist']
+        period_h = int(request.POST['period_h'])
+        period_m = int(request.POST['period_m'])
+        # print(baylist)
+        # print(type(bayliststr))
+        baylist = ast.literal_eval(bayliststr)
+        listlength = len(baylist)
+        print(listlength)
+        print(type(baylist[0]))
+        print(period_m)
+
+        reqdict['baylist'] = baylist
+        # reqdict['period_h'] = period_h
+        reqdict['period_m'] = period_m
+
+        print(reqdict)
+
+        # 处理时间
+        currenttimehour = int(time.strftime('%H', time.localtime(time.time())))
+        currenttimeminute = int(time.strftime('%M', time.localtime(time.time())))
+        newperiod_m = (currenttimeminute + period_m)%60
+        print(newperiod_m)
+        newperiod_h = currenttimehour + period_h + int((currenttimeminute + period_m)/60)
+        print(newperiod_h)
+        if newperiod_m < 30:
+            newperiod_m = 0
+        elif newperiod_m >= 30:
+            newperiod_m = 30
+
+        print(str(newperiod_h)+ ':'+str(newperiod_m))
+
+    dict['create_at'] =str(time.strftime('%Y-%m-%d %H:%M',time.localtime(time.time())))
+
+
+    print(str(currenttimehour)+':'+str(currenttimeminute))
+    print(dict)
+    # json = json.dumps(dict)
+
+    return HttpResponse('noresponse')
+
+
+
 
 
 def detail(request, parkingdata_id):

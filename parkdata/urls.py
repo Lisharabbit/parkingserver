@@ -9,6 +9,7 @@ urlpatterns = [
     # path('', views.index, name='index'),
     path('predict',views.predict, name = 'predict'),
     path('lastweekdata',views.lastWeekdata, name = 'lastWeekdata'),
+    path('suggestbays',views.suggestbays, name = 'suggestbays'),
     path('<int:parkingdata_id>/', views.detail, name='detail'),
     # path('detail/',views.detail,name = 'detial'),
     # path('search/', view.search,),
