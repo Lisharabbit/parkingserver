@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c91fa762-d0f0-40d4-bf26-b15d72db4c3d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/parkdata/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkdata/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parkdata/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkdata/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parkingServer/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/parkingServer/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,8 +43,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/parkdata/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="216" selection-start-line="216" selection-end-line="216" />
+            <state relative-caret-position="343">
+              <caret line="207" column="69" selection-start-line="207" selection-start-column="69" selection-end-line="207" selection-end-column="69" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
               </folding>
@@ -380,7 +378,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32903227" />
       <window_info anchor="bottom" id="Python Console" order="9" weight="0.32848486" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32969698" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.4569697" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.39151517" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21816881" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
@@ -743,8 +741,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/parkdata/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="216" selection-start-line="216" selection-end-line="216" />
+        <state relative-caret-position="343">
+          <caret line="207" column="69" selection-start-line="207" selection-start-column="69" selection-end-line="207" selection-end-column="69" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
           </folding>

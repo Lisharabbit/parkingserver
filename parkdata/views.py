@@ -143,38 +143,6 @@ def lastWeekdata(request):
         problistdict = {'prob': ratelist}
         problistdictjson = json.dumps(problistdict)
 
-        # if monobj.exists():
-        #     monrate = Lastmondata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
-        #     print(monrate)
-        #     print(type(monrate))
-        # else:
-        #     monrate = 0
-        # if tueobj.exists():
-        #     tuerate = Lastmondata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
-        #     print(monrate)
-        #     print(type(monrate))
-        # else:
-        #     monrate = 0
-        # if tueobj.exists():
-        #     tuerate = Lastmondata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
-        #     print(monrate)
-        #     print(type(monrate))
-        # else:
-        #     monrate = 0
-
-
-        # tuerate = Lasttuedata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
-        # wedrate = Lastweddata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
-        # thurate = Lastthudata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
-        # frirate = Lastfridata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
-        # satrate = Lastsatdata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
-        # sunrate = Lastsundata.objects.filter(bay_id=bayid).values('occupiedrate')[0]['occupiedrate']
-        #
-        # problist =[monrate,tuerate,wedrate,thurate,frirate,satrate,sunrate]
-        #
-        # problistdict = {'prob': problist}
-        # problistdictjson = json.dumps(problistdict)
-
     return HttpResponse(problistdictjson,content_type = "application/json")
 
 @csrf_exempt
@@ -183,45 +151,86 @@ def suggestbays(request):
     dict = {}
     reqdict = {}
     if request.method == 'POST':
-        bayliststr = request.POST['baylist']
+        streetmarkerliststr = request.POST['baylist']
         period_h = int(request.POST['period_h'])
         period_m = int(request.POST['period_m'])
         # print(baylist)
         # print(type(bayliststr))
-        baylist = ast.literal_eval(bayliststr)
-        listlength = len(baylist)
-        print(listlength)
-        print(type(baylist[0]))
         print(period_m)
 
-        reqdict['baylist'] = baylist
+        reqdict['baylist'] = streetmarkerliststr
         # reqdict['period_h'] = period_h
         reqdict['period_m'] = period_m
 
         print(reqdict)
 
         # 处理时间
+        currentweekday = int(time.strftime('%w', time.localtime(time.time())))
         currenttimehour = int(time.strftime('%H', time.localtime(time.time())))
         currenttimeminute = int(time.strftime('%M', time.localtime(time.time())))
         newperiod_m = (currenttimeminute + period_m)%60
         print(newperiod_m)
         newperiod_h = currenttimehour + period_h + int((currenttimeminute + period_m)/60)
         print(newperiod_h)
-        if newperiod_m < 30:
-            newperiod_m = 0
-        elif newperiod_m >= 30:
-            newperiod_m = 30
-
-        print(str(newperiod_h)+ ':'+str(newperiod_m))
-
-    dict['create_at'] =str(time.strftime('%Y-%m-%d %H:%M',time.localtime(time.time())))
+        if newperiod_m >= 30: #if minutes are more than 30, we compare the predicted values in next period, else we compare the current period
+            newperiod_h+=1
 
 
-    print(str(currenttimehour)+':'+str(currenttimeminute))
-    print(dict)
+        # 找相对应的block
+        streetmarkerlist = ast.literal_eval(streetmarkerliststr)
+        listlength = len(streetmarkerlist)
+        print(listlength)
+        print(type(streetmarkerlist[0]))
+
+        streetmarkerlistindex = -1
+        list2 = []
+        for eachbayid in streetmarkerlist:
+            blockidObject = Blockquery.objects.filter(streemarker=eachbayid)
+            print(blockidObject)
+            if blockidObject.exists():
+                streetmarkerlistindex += 1
+                print("streetmarkerlistindex :" + str(streetmarkerlistindex))
+                # print("right street marker!")
+                blockidObject_values = blockidObject.values_list
+                # print(blockidObject_values)
+                blockidObject_blockid = blockidObject.values('blockid')[0]['blockid']
+                #
+                # print(blockidObject_blockid)
+                # print(type(blockidObject_blockid))
+
+                predictObject = Weekly2.objects.filter(blockid=blockidObject_blockid,weekday=currentweekday,period=newperiod_h)
+                # print(predictObject)
+                predictedValues = predictObject.values('predicted')[0]['predicted']
+                print(predictedValues)
+                print(type(predictedValues))
+            else:
+                predictedValues = 1
+                print('streetmarker does not exist, no predicted data')
+            list2.append(predictedValues)
+            print(list2)
+
+        # sort the values, pick up top 3 with smallest values
+        tmp = {}
+        for i in range(0, len(list2)):
+            tmp[i] = [list2[i], streetmarkerlist[i]]
+        tmp_sorted = sorted(tmp.items(), key=lambda x: x[1][0])
+        lowest3 = tmp_sorted[0:3]
+        sortedStreetMarkerlist =[]
+        for each in lowest3:
+            streetmarker = each[1][1]
+            sortedStreetMarkerlist.append(streetmarker)
+        print(sortedStreetMarkerlist)
+
+        sortedStreetMarkerdict ={'sortedstreetmarkers': sortedStreetMarkerlist}
+        print(sortedStreetMarkerdict)
+        sortedStreetMarkerdictjson = json.dumps(sortedStreetMarkerdict)
+
+    # dict['create_at'] =str(time.strftime('%Y-%m-%d %H:%M',time.localtime(time.time())))
+    # print(str(currenttimehour)+':'+str(currenttimeminute))
+    # print(dict)
     # json = json.dumps(dict)
 
-    return HttpResponse('noresponse')
+    return HttpResponse(sortedStreetMarkerdictjson,content_type = "application/json")
 
 
 
@@ -240,15 +249,3 @@ def detail(request, parkingdata_id):
     datalist = json.dumps(datalist)
 
     return render('parkdata/detail.html', datalist)
-
-# def search (request):
-#     parking = Parking()
-#     id = request.GET["bay_id"]
-#     result = parking.objects.filter(pk=id)
-#     bayid =
-#
-#     return HttpResponseRedirect(url)
-
-    # 重定向 ：具体的url， 然后去urls.py 去匹配决定执行什么函数
-
-# data['top'][0]
