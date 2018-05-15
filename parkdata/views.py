@@ -158,8 +158,8 @@ def suggestbays(request):
         # period_m = req['period_h']
 
         streetmarkerliststr = request.POST.get('baylist')
-        period_h = request.POST.get('period_h')
-        period_m = request.POST.get('period_m')
+        period_h = int(request.POST.get('period_h'))
+        period_m = int(request.POST.get('period_m'))
 
 
 
@@ -170,14 +170,12 @@ def suggestbays(request):
         print(period_m)
         print(type(period_m))
 
-        print(streetmarkerliststr[0])
-        print(type(streetmarkerliststr[0]))
 
 
 
 
         reqdict['baylist'] = streetmarkerliststr
-        # reqdict['period_h'] = period_h
+        reqdict['period_h'] = period_h
         reqdict['period_m'] = period_m
 
         print(reqdict)
