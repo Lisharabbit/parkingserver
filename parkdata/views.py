@@ -168,91 +168,84 @@ def suggestbays(request):
         print(period_m)
         print(type(period_m))
 
+        streetmarkerlist = json.loads(streetmarkerliststr)
+        print(streetmarkerlist)
+        print(type(streetmarkerlist))
+        print(streetmarkerlist[0])
 
-        reqdict['baylist'] = streetmarkerliststr
-        reqdict['period_h'] = period_h
-        reqdict['period_m'] = period_m
 
-        print(reqdict)
+        # 处理时间
+        currentweekday = int(time.strftime('%w', time.localtime(time.time())))
+        currenttimehour = int(time.strftime('%H', time.localtime(time.time())))
+        currenttimeminute = int(time.strftime('%M', time.localtime(time.time())))
+        newperiod_m = (currenttimeminute + period_m)%60
+        print(newperiod_m)
+        newperiod_h = currenttimehour + period_h + int((currenttimeminute + period_m)/60)
+        print(newperiod_h)
+        if newperiod_m >= 30: #if minutes are more than 30, we compare the predicted values in next period, else we compare the current period
+            newperiod_h+=1
+        if newperiod_h >23 : #if hours are more than 23, we compare the predicted values in next period next day, else we compare the current period
+            currentweekday +=1
+            newperiod_h = newperiod_h%24
+        if currentweekday >6:
+            currentweekday = currentweekday%7
 
-    #     # 处理时间
-    #     currentweekday = int(time.strftime('%w', time.localtime(time.time())))
-    #     currenttimehour = int(time.strftime('%H', time.localtime(time.time())))
-    #     currenttimeminute = int(time.strftime('%M', time.localtime(time.time())))
-    #     newperiod_m = (currenttimeminute + period_m)%60
-    #     print(newperiod_m)
-    #     newperiod_h = currenttimehour + period_h + int((currenttimeminute + period_m)/60)
-    #     print(newperiod_h)
-    #     if newperiod_m >= 30: #if minutes are more than 30, we compare the predicted values in next period, else we compare the current period
-    #         newperiod_h+=1
-    #     if newperiod_h >23 : #if hours are more than 23, we compare the predicted values in next period next day, else we compare the current period
-    #         currentweekday +=1
-    #         newperiod_h = newperiod_h%24
-    #     if currentweekday >6:
-    #         currentweekday = currentweekday%7
-    #
-    #
-    #
-    #     # 找相对应的block
-    #     # streetmarkerlist = ast.literal_eval(streetmarkerliststr)
-    #     streetmarkerlist = []
-    #     streetmarkerlist = streetmarkerliststr
-    #     listlength = len(streetmarkerlist)
-    #     print(listlength)
-    #     print(type(streetmarkerlist[0]))
-    #
-    #     streetmarkerlistindex = -1
-    #     list2 = []
-    #     for eachbayid in streetmarkerlist:
-    #         blockidObject = Blockquery.objects.filter(streemarker=eachbayid)
-    #         print(blockidObject)
-    #         if blockidObject.exists():
-    #             streetmarkerlistindex += 1
-    #             print("streetmarkerlistindex :" + str(streetmarkerlistindex))
-    #             # print("right street marker!")
-    #             blockidObject_values = blockidObject.values_list
-    #             # print(blockidObject_values)
-    #             blockidObject_blockid = blockidObject.values('blockid')[0]['blockid']
-    #             #
-    #             # print(blockidObject_blockid)
-    #             # print(type(blockidObject_blockid))
-    #
-    #             predictObject = Weekly2.objects.filter(blockid=blockidObject_blockid,weekday=currentweekday,period=newperiod_h)
-    #             # print(predictObject)
-    #             predictedValues = predictObject.values('predicted')[0]['predicted']
-    #             print(predictedValues)
-    #             print(type(predictedValues))
-    #         else:
-    #             predictedValues = 1
-    #             print('streetmarker does not exist, no predicted data')
-    #         list2.append(predictedValues)
-    #         print(list2)
-    #
-    #     # sort the values, pick up top 3 with smallest values
-    #     tmp = {}
-    #     for i in range(0, len(list2)):
-    #         tmp[i] = [list2[i], streetmarkerlist[i]]
-    #     tmp_sorted = sorted(tmp.items(), key=lambda x: x[1][0])
-    #     lowest3 = tmp_sorted[0:3]
-    #     sortedStreetMarkerlist =[]
-    #     for each in lowest3:
-    #         streetmarker = each[1][1]
-    #         sortedStreetMarkerlist.append(streetmarker)
-    #     print(sortedStreetMarkerlist)
-    #
-    #     sortedStreetMarkerdict ={'sortedstreetmarkers': sortedStreetMarkerlist}
-    #     print(sortedStreetMarkerdict)
-    #     sortedStreetMarkerdictjson = json.dumps(sortedStreetMarkerdict)
-    #
-    #     # period_s = int(request.POST['period_s'])
-    #     # minutes = int(period_s/60)
-    #     # hours = int(period_s/3600)
-    #     # if minutes>=60:
-    #     #     minutes = minutes%60
-    #     # print(str(minutes))
-    #     # print(str(hours))
-    # return HttpResponse(sortedStreetMarkerdictjson,content_type = "application/json")
-    return  HttpResponse("testing")
+        # 找相对应的block
+        listlength = len(streetmarkerlist)
+        print(listlength)
+
+        streetmarkerlistindex = -1
+        list2 = []
+        for eachbayid in streetmarkerlist:
+            blockidObject = Blockquery.objects.filter(streemarker=eachbayid)
+            print(blockidObject)
+            if blockidObject.exists():
+                streetmarkerlistindex += 1
+                print("streetmarkerlistindex :" + str(streetmarkerlistindex))
+                # print("right street marker!")
+                blockidObject_values = blockidObject.values_list
+                # print(blockidObject_values)
+                blockidObject_blockid = blockidObject.values('blockid')[0]['blockid']
+                #
+                # print(blockidObject_blockid)
+                # print(type(blockidObject_blockid))
+
+                predictObject = Weekly2.objects.filter(blockid=blockidObject_blockid,weekday=currentweekday,period=newperiod_h)
+                # print(predictObject)
+                predictedValues = predictObject.values('predicted')[0]['predicted']
+                print(predictedValues)
+                print(type(predictedValues))
+            else:
+                predictedValues = 1
+                print('streetmarker does not exist, no predicted data')
+            list2.append(predictedValues)
+            print(list2)
+
+        # sort the values, pick up top 3 with smallest values
+        tmp = {}
+        for i in range(0, len(list2)):
+            tmp[i] = [list2[i], streetmarkerlist[i]]
+        tmp_sorted = sorted(tmp.items(), key=lambda x: x[1][0])
+        lowest3 = tmp_sorted[0:3]
+        sortedStreetMarkerlist =[]
+        for each in lowest3:
+            streetmarker = each[1][1]
+            sortedStreetMarkerlist.append(streetmarker)
+        print(sortedStreetMarkerlist)
+
+        sortedStreetMarkerdict ={'sortedstreetmarkers': sortedStreetMarkerlist}
+        print(sortedStreetMarkerdict)
+        sortedStreetMarkerdictjson = json.dumps(sortedStreetMarkerdict)
+
+        # period_s = int(request.POST['period_s'])
+        # minutes = int(period_s/60)
+        # hours = int(period_s/3600)
+        # if minutes>=60:
+        #     minutes = minutes%60
+        # print(str(minutes))
+        # print(str(hours))
+    return HttpResponse(sortedStreetMarkerdictjson,content_type = "application/json")
+    # return  HttpResponse("testing")
 
 
 #
