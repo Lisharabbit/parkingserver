@@ -152,7 +152,7 @@ def suggestbays(request):
     dict = {}
     reqdict = {}
     if request.method == 'POST':
-        req = json.loads(request.body.decode('utf-8'))
+        req = json.loads(request.read().decode('utf-8'))
         streetmarkerliststr = req['baylist']
         period_h = req['period_h']
         period_m = req['period_h']
