@@ -152,14 +152,14 @@ def suggestbays(request):
     dict = {}
     reqdict = {}
     if request.method == 'POST':
-        req = json.loads(request.read().decode('utf-8'))
-        streetmarkerliststr = req['baylist']
-        period_h = req['period_h']
-        period_m = req['period_h']
+        # req = json.loads(request.body)
+        # streetmarkerliststr = req['baylist']
+        # period_h = req['period_h']
+        # period_m = req['period_h']
 
-        # streetmarkerliststr = request.POST.get('baylist')
-        # period_h = request.POST.get('period_h')
-        # period_m = request.POST.get('period_h')
+        streetmarkerliststr = request.POST.get('baylist')
+        period_h = request.POST.get('period_h')
+        period_m = request.POST.get('period_m')
 
 
 
