@@ -8,7 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 import json
-import time
+import time,datetime
+from datetime import timedelta
 from django.core import serializers
 from .models import Parking,Blockquery,Weekly1,Weekly2,Lastmondata,Lasttuedata,Lastweddata,Lastthudata,Lastfridata,Lastsatdata,Lastsundata
 
@@ -151,12 +152,24 @@ def suggestbays(request):
     dict = {}
     reqdict = {}
     if request.method == 'POST':
-        streetmarkerliststr = request.POST['baylist']
-        period_h = int(request.POST['period_h'])
-        period_m = int(request.POST['period_m'])
-        # print(baylist)
-        # print(type(bayliststr))
+        req = json.loads(request.body)
+        streetmarkerliststr = req['baylist']
+        # streetmarkerliststr = request.POST.get('baylist')
+        period_h = req['period_h']
+        period_m = req['period_m']
+
+        print(streetmarkerliststr)
+        print(type(streetmarkerliststr))
+        print(period_h)
+        print(type(period_h))
         print(period_m)
+        print(type(period_m))
+
+        print(streetmarkerliststr[0])
+        print(type(streetmarkerliststr[0]))
+
+
+
 
         reqdict['baylist'] = streetmarkerliststr
         # reqdict['period_h'] = period_h
@@ -183,7 +196,9 @@ def suggestbays(request):
 
 
         # 找相对应的block
-        streetmarkerlist = ast.literal_eval(streetmarkerliststr)
+        # streetmarkerlist = ast.literal_eval(streetmarkerliststr)
+        streetmarkerlist = []
+        streetmarkerlist = streetmarkerliststr
         listlength = len(streetmarkerlist)
         print(listlength)
         print(type(streetmarkerlist[0]))
@@ -231,13 +246,21 @@ def suggestbays(request):
         print(sortedStreetMarkerdict)
         sortedStreetMarkerdictjson = json.dumps(sortedStreetMarkerdict)
 
+        # period_s = int(request.POST['period_s'])
+        # minutes = int(period_s/60)
+        # hours = int(period_s/3600)
+        # if minutes>=60:
+        #     minutes = minutes%60
+        # print(str(minutes))
+        # print(str(hours))
+
     # dict['create_at'] =str(time.strftime('%Y-%m-%d %H:%M',time.localtime(time.time())))
     # print(str(currenttimehour)+':'+str(currenttimeminute))
     # print(dict)
     # json = json.dumps(dict)
 
     return HttpResponse(sortedStreetMarkerdictjson,content_type = "application/json")
-
+    # return  HttpResponse("testing")
 
 
 
