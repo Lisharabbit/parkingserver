@@ -227,6 +227,35 @@ def suggestbays(request):
             tmp[i] = [list2[i], streetmarkerlist[i]]
         tmp_sorted = sorted(tmp.items(), key=lambda x: x[1][0])
         lowest3 = tmp_sorted[0:3]
+
+        lowest1 = tmp_sorted[0]
+        print("lowest1")
+        print(lowest1)
+
+        lowest1blockidObject = Blockquery.objects.filter(streemarker=eachbayid)
+        lowest1blockidObject_blockid = lowest1blockidObject.values('blockid')[0]['blockid']
+        # print(lowest1blockidObject_blockid)
+        streetmarkersObject = Blockquery.objects.filter(blockid=lowest1blockidObject_blockid)
+        streetmarkers = streetmarkersObject.values('streemarker')
+        print(type(streetmarkers))
+        print("streetmarkers")
+        print(streetmarkers)
+
+        blockstreetmarkerlist = []
+        for each in streetmarkers:
+            eachstreetmarker = each['streemarker']
+            blockstreetmarkerlist.append(eachstreetmarker)
+            print(eachstreetmarker)
+        print("blockstreetmarkerlist")
+        print(blockstreetmarkerlist)
+
+        blockstreetmarkerdict ={}
+        blockstreetmarkerdict['sortedstreetmarkers'] = blockstreetmarkerlist
+        blockstreetmarkerjson = json.dumps(blockstreetmarkerdict)
+
+
+
+
         sortedStreetMarkerlist =[]
         for each in lowest3:
             streetmarker = each[1][1]
@@ -247,7 +276,9 @@ def suggestbays(request):
         #     minutes = minutes%60
         # print(str(minutes))
         # print(str(hours))
-    return HttpResponse(sortedStreetMarkerdictjson,content_type = "application/json")
+    # return HttpResponse(sortedStreetMarkerdictjson,content_type = "application/json")
+        return HttpResponse(blockstreetmarkerjson,content_type= "application/json")
+
     # return  HttpResponse("testing")
 
 
