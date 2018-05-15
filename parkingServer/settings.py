@@ -30,7 +30,7 @@ DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
-ALLOWED_HOSTS = ['115.146.95.41','127.0.0.1','unimelbparkdata.tk']
+ALLOWED_HOSTS = ['115.146.95.41','127.0.0.1','unimelbparkdata.tk','172.20.10.7','100.103.170.110']
 
 
 # Application definition

@@ -10,12 +10,12 @@ urlpatterns = [
     path('predict',views.predict, name = 'predict'),
     path('lastweekdata',views.lastWeekdata, name = 'lastWeekdata'),
     path('suggestbays',views.suggestbays, name = 'suggestbays'),
-    path('<int:parkingdata_id>/', views.detail, name='detail'),
+    # path('<int:parkingdata_id>/', views.detail, name='detail'),
     # path('detail/',views.detail,name = 'detial'),
     # path('search/', view.search,),
     # path('runJob/',views.runJob),
-    url(r'^runJob/$',views.run_job),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    # url(r'^runJob/$',views.run_job),
+    # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 # from django.conf.urls import url

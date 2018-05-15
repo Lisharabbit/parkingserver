@@ -152,15 +152,14 @@ def suggestbays(request):
     dict = {}
     reqdict = {}
     if request.method == 'POST':
-        # req = json.loads(request.body.decode('utf-8'))
-        # streetmarkerliststr = req['baylist']
-        # streetmarkerliststr = request.POST.get('baylist')
-        # period_h = req['period_h']
-        # period_m = req['period_h']
+        req = json.loads(request.body.decode('utf-8'))
+        streetmarkerliststr = req['baylist']
+        period_h = req['period_h']
+        period_m = req['period_h']
 
-        streetmarkerliststr = request.POST.get('baylist')
-        period_h = request.POST.get('period_h')
-        period_m = request.POST.get('period_h')
+        # streetmarkerliststr = request.POST.get('baylist')
+        # period_h = request.POST.get('period_h')
+        # period_m = request.POST.get('period_h')
 
 
 
@@ -259,28 +258,22 @@ def suggestbays(request):
         #     minutes = minutes%60
         # print(str(minutes))
         # print(str(hours))
-
-    # dict['create_at'] =str(time.strftime('%Y-%m-%d %H:%M',time.localtime(time.time())))
-    # print(str(currenttimehour)+':'+str(currenttimeminute))
-    # print(dict)
-    # json = json.dumps(dict)
-
     return HttpResponse(sortedStreetMarkerdictjson,content_type = "application/json")
     # return  HttpResponse("testing")
 
 
-
-
-def detail(request, parkingdata_id):
-    parkingdata = get_object_or_404(Parking, pk = parkingdata_id)
-    bay_id = parkingdata.bay_id
-    lat = parkingdata.lat
-    lon = parkingdata.lon
-    st_market_id = parkingdata.st_market_id
-    status = parkingdata.status
-    parkingdate = parkingdata.parkingdate
-
-    datalist = {'bay_id':bay_id,'lat':lat,'lon': lon,'st_market_id':st_market_id,'status':status,'parkingdate':parkingdate}
-    datalist = json.dumps(datalist)
-
-    return render('parkdata/detail.html', datalist)
+#
+#
+# def detail(request, parkingdata_id):
+#     parkingdata = get_object_or_404(Parking, pk = parkingdata_id)
+#     bay_id = parkingdata.bay_id
+#     lat = parkingdata.lat
+#     lon = parkingdata.lon
+#     st_market_id = parkingdata.st_market_id
+#     status = parkingdata.status
+#     parkingdate = parkingdata.parkingdate
+#
+#     datalist = {'bay_id':bay_id,'lat':lat,'lon': lon,'st_market_id':st_market_id,'status':status,'parkingdate':parkingdate}
+#     datalist = json.dumps(datalist)
+#
+#     return render('parkdata/detail.html', datalist)
