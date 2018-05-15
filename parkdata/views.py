@@ -233,9 +233,12 @@ def suggestbays(request):
             sortedStreetMarkerlist.append(streetmarker)
         print(sortedStreetMarkerlist)
 
-        sortedStreetMarkerdict ={'sortedstreetmarkers': sortedStreetMarkerlist}
+        sortedStreetMarkerdict = {}
+        sortedStreetMarkerdict['sortedstreetmarkers'] = sortedStreetMarkerlist
         print(sortedStreetMarkerdict)
         sortedStreetMarkerdictjson = json.dumps(sortedStreetMarkerdict)
+        print(sortedStreetMarkerdictjson)
+        print(type(sortedStreetMarkerdictjson))
 
         # period_s = int(request.POST['period_s'])
         # minutes = int(period_s/60)
