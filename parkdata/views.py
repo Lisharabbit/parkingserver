@@ -14,29 +14,6 @@ from django.core import serializers
 from .models import Parking,Blockquery,Weekly1,Weekly2,Lastmondata,Lasttuedata,Lastweddata,Lastthudata,Lastfridata,Lastsatdata,Lastsundata
 
 
-@csrf_exempt
-def run_job(request):
-    # 判断请求头是否为json
-    if request.content_type != 'application/json':
-        # 如果不是的话，返回405
-        return HttpResponse('only support json data', status=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
-    # 判断是否为get 请求
-    if request.method == 'GET':
-        try:
-            # 解析请求的json格式入参
-            data = JSONParser().parse(request)
-        except Exception as why:
-            print(why.args)
-        else:
-            content = {'msg': 'SUCCESS'}
-            print(data)
-            # 返回自定义请求内容content,200状态码
-            return JsonResponse(data=content, status=status.HTTP_200_OK)
-    # 如果不是get 请求返回不支持的请求方法
-    return HttpResponseNotAllowed(permitted_methods=['GET'])
-
-# api end
-
 
 
 
@@ -83,37 +60,7 @@ def predict(request):
             # print(dict)
         else:
             return HttpResponse("wrong street marker")
-        # blockidObject_blockid = blockidObject.values('blockid')
-        # print(blockidObject_blockid)
-        # count = 0
-        # print(blockidObject_blockid[1]['blockid'])
-        # block_id = blockidObject_blockid[1]['blockid']
-        # predictObject = Finetreepredict.objects.filter(blockid = block_id,period_m = 0,period_h = 0)
-        # predictObject_predicted = predictObject.values('predicted')
-
-        # predictObject_id = int(predictObject.values('id')[0]['id'])
-        # nextEightObjects = Finetreepredict.objects.order_by('id')[predictObject_id:predictObject_id+7]#这是接下来的7个时间的 但是h m 在16 以后不能这么做 要回头找
-        # # nextEightObjects = serializers.serialize('json',nextEightObjects) #如果没有序列化，将会是是一个queryset,
-        # nextEightObjects = nextEightObjects.values('pk','period_h','period_m','predicted')
-        # dict2 = collections.defaultdict(dict)
-        # count = 0
-        # for eachObject in nextEightObjects:
-        #     a = json.dumps(eachObject)
-        #     dict2[count]['fields'] = str(a)
-        #     count = count +1
-        #     # dict2 = dict2.append(a)
-        #     print(eachObject)
-        # print(dict2)
-        # fakedata = "{\"prob\": [{\"mon\": [26, 45, 56.7, 26, 25, 56.7, 26, 45, 56.7, 78.56, 56.7, 8.56, 56.7, 78.56, 56.7, 38.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 34.56, 84.56]},{\"tue\": [26, 45, 56.7, 26, 45, 56.7, 26, 45, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 8.56, 56.7, 78.56, 34.56, 84.56]},{\"wed\": [26, 45, 56.7, 26, 45, 56.7, 26, 45, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 6.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 34.56, 34.56]},{\"thu\": [26, 45, 56.7, 26, 45, 86.7, 26, 45, 56.7, 8.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 64.56, 34.56]},{\"fri\": [26, 45, 56.7, 26, 45, 56.7, 26, 45, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 34.56, 94.56]},{\"sat\": [26, 45, 56.7, 26, 45, 56.7, 26, 45, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 8.56, 56.7, 78.56, 24.56, 34.56]},{\"sun\": [26, 45, 56.7, 26, 45, 56.7, 26, 5, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 56.7, 78.56, 26.7, 78.56, 56.7, 78.56, 56.7, 78.56, 34.56, 34.56]}]}"
-
-        # print(nextEightObjects)
-        # print(str(type(nextEightObjects)))
-        # print(predictObject_id)
-        # print(str(type(predictObject_predicted)))
-        # predictedValue = predictObject_predicted[0]['predicted']
-        # dict = {'predict': predictedValue}
-        # r = json.dumps(dict)
-        # print(str(type(r)))
+ 
 
 
     return HttpResponse(dict,content_type = "application/json")
@@ -174,7 +121,7 @@ def suggestbays(request):
         print(streetmarkerlist[0])
 
 
-        # 处理时间
+        # 处理时间 process time
         currentweekday = int(time.strftime('%w', time.localtime(time.time())))
         currenttimehour = int(time.strftime('%H', time.localtime(time.time())))
         currenttimeminute = int(time.strftime('%M', time.localtime(time.time())))
@@ -190,7 +137,7 @@ def suggestbays(request):
         if currentweekday >6:
             currentweekday = currentweekday%7
 
-        # 找相对应的block
+        # 找相对应的block find corresponding block
         listlength = len(streetmarkerlist)
         print(listlength)
 
@@ -269,31 +216,7 @@ def suggestbays(request):
         print(sortedStreetMarkerdictjson)
         print(type(sortedStreetMarkerdictjson))
 
-        # period_s = int(request.POST['period_s'])
-        # minutes = int(period_s/60)
-        # hours = int(period_s/3600)
-        # if minutes>=60:
-        #     minutes = minutes%60
-        # print(str(minutes))
-        # print(str(hours))
-    # return HttpResponse(sortedStreetMarkerdictjson,content_type = "application/json")
         return HttpResponse(blockstreetmarkerjson,content_type= "application/json")
 
-    # return  HttpResponse("testing")
+  
 
-
-#
-#
-# def detail(request, parkingdata_id):
-#     parkingdata = get_object_or_404(Parking, pk = parkingdata_id)
-#     bay_id = parkingdata.bay_id
-#     lat = parkingdata.lat
-#     lon = parkingdata.lon
-#     st_market_id = parkingdata.st_market_id
-#     status = parkingdata.status
-#     parkingdate = parkingdata.parkingdate
-#
-#     datalist = {'bay_id':bay_id,'lat':lat,'lon': lon,'st_market_id':st_market_id,'status':status,'parkingdate':parkingdate}
-#     datalist = json.dumps(datalist)
-#
-#     return render('parkdata/detail.html', datalist)
