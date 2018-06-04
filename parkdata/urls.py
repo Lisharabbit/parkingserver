@@ -7,8 +7,8 @@ from . import models
 app_name = 'parkdata'
 urlpatterns = [
    
-    path('predict',views.predict, name = 'predict'),
-    path('lastweekdata',views.lastWeekdata, name = 'lastWeekdata'),
-    path('suggestbays',views.suggestbays, name = 'suggestbays'),
+    path('predict',views.predict, name = 'predict'),# url for visualise predicted data
+    path('lastweekdata',views.lastWeekdata, name = 'lastWeekdata'),# url for visualise historical data
+    path('suggestbays',views.suggestbays, name = 'suggestbays'),# url for recommend parking lots
 ]
 
