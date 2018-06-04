@@ -13,9 +13,6 @@ from datetime import timedelta
 from django.core import serializers
 from .models import Parking,Blockquery,Weekly1,Weekly2,Lastmondata,Lasttuedata,Lastweddata,Lastthudata,Lastfridata,Lastsatdata,Lastsundata
 
-
-
-
 # predict possibility
 @csrf_exempt
 def predict(request):
@@ -34,11 +31,9 @@ def predict(request):
             # make a list of all the parking possibilities in the block
             count = 0
             list=[]
-            for eachobject in predictedValues:
-               
+            for eachobject in predictedValues: 
                 count = count+1
                 list.append(eachobject['predicted'])
-
 
             mon={'mon':list[24:48]}
             tue={'tue':list[48:72]}
@@ -52,8 +47,6 @@ def predict(request):
             
         else:
             return HttpResponse("wrong street marker")
- 
-
 
     return HttpResponse(dict,content_type = "application/json")
 
@@ -62,8 +55,8 @@ def predict(request):
 @csrf_exempt
 def lastWeekdata(request):
     if request.method == 'GET':
-   
         bayid = request.GET.get('bayid')
+        
         # get the  occupied rates of objects from monday to sunday
         monobj = Lastmondata.objects.filter(bay_id=bayid).values('occupiedrate')
         tueobj = Lasttuedata.objects.filter(bay_id=bayid).values('occupiedrate')
@@ -82,12 +75,11 @@ def lastWeekdata(request):
             else:
                 eachrate = 0
                 ratelist = ratelist + [eachrate]
-        # print(ratelist)
+        
         problistdict = {'prob': ratelist}
         problistdictjson = json.dumps(problistdict) # turn list to the form of JSON
 
     return HttpResponse(problistdictjson,content_type = "application/json")
-
 
 # recommend parking lots base on users' locations
 @csrf_exempt
@@ -96,7 +88,6 @@ def suggestbays(request):
     dict = {}
     reqdict = {}
     if request.method == 'POST':
-  
         # get the key values in requests
         streetmarkerliststr = request.POST.get('baylist')
         period_h = int(request.POST.get('period_h'))
@@ -140,7 +131,6 @@ def suggestbays(request):
                 print('streetmarker does not exist, no predicted data')
             list2.append(predictedValues)
             
-
         # sort the values(opposite to the parking possibilities), pick up top 3 with smallest values
         # the smaller the value is , the higher the parking possibility is
         tmp = {}
@@ -148,8 +138,7 @@ def suggestbays(request):
             tmp[i] = [list2[i], streetmarkerlist[i]]
         tmp_sorted = sorted(tmp.items(), key=lambda x: x[1][0])
         lowest3 = tmp_sorted[0:3]
-
-        
+  
         lowest1 = tmp_sorted[0] # the list of street marker with the lowest value 
         lowest1blockidObject = Blockquery.objects.filter(streemarker=eachbayid)
         lowest1blockidObject_blockid = lowest1blockidObject.values('blockid')[0]['blockid']
@@ -164,21 +153,14 @@ def suggestbays(request):
         blockstreetmarkerdict ={}
         blockstreetmarkerdict['sortedstreetmarkers'] = blockstreetmarkerlist
         blockstreetmarkerjson = json.dumps(blockstreetmarkerdict)
-
-
-
+        
         # return to the street markers in the block with the highest parking possibilities
         sortedStreetMarkerlist =[]
         for each in lowest3:
             streetmarker = each[1][1]
             sortedStreetMarkerlist.append(streetmarker)
-
         sortedStreetMarkerdict = {}
         sortedStreetMarkerdict['sortedstreetmarkers'] = sortedStreetMarkerlist
         sortedStreetMarkerdictjson = json.dumps(sortedStreetMarkerdict)
        
-
         return HttpResponse(blockstreetmarkerjson,content_type= "application/json")
-
-  
-
