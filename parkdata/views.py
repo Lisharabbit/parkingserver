@@ -16,36 +16,29 @@ from .models import Parking,Blockquery,Weekly1,Weekly2,Lastmondata,Lasttuedata,L
 
 
 
-
+# predict possibility
 @csrf_exempt
 def predict(request):
     if request.method == 'GET':
-        print(str(type(request)))
+        
         streetMarker = request.GET.get('streetMarker')
-        print(streetMarker)
-        # print(type(streetMarker))
-        blockidObject = Blockquery.objects.filter(streemarker = streetMarker)
+        
+        blockidObject = Blockquery.objects.filter(streemarker = streetMarker) # get the object with the street marker in the url
         if blockidObject.exists():
             print("right street marker!")
             blockidObject_values = blockidObject.values_list
-            # print(blockidObject_values)
             blockidObject_blockid = blockidObject.values('blockid')[0]['blockid']
-
-            # print(blockidObject_blockid)
-            # print(type(blockidObject_blockid))
-
             predictObject = Weekly2.objects.filter(blockid=blockidObject_blockid)
-            predictedValues = predictObject.values('predicted','id','weekday')
-            # print(predictedValues)
+            predictedValues = predictObject.values('predicted','id','weekday') # get the attributes predicted possibility, id, and weekday of the object
+            
+            # make a list of all the parking possibilities in the block
             count = 0
             list=[]
             for eachobject in predictedValues:
-                # print(eachobject)
+               
                 count = count+1
                 list.append(eachobject['predicted'])
-            # print(count)
 
-            # print(list)
 
             mon={'mon':list[24:48]}
             tue={'tue':list[48:72]}
@@ -55,9 +48,8 @@ def predict(request):
             sat={'sat':list[144:168]}
             sun={'sun':list[0:24]}
             dict={'prob':[mon,tue,wed,thu,fri,sat,sun]}
-            dict = json.dumps(dict)
-
-            # print(dict)
+            dict = json.dumps(dict) # turn list to the form of JSON
+            
         else:
             return HttpResponse("wrong street marker")
  
@@ -65,11 +57,14 @@ def predict(request):
 
     return HttpResponse(dict,content_type = "application/json")
 
+
+# visualise the historical data
 @csrf_exempt
 def lastWeekdata(request):
     if request.method == 'GET':
-        # print(str(type(request)))
+   
         bayid = request.GET.get('bayid')
+        # get the  occupied rates of objects from monday to sunday
         monobj = Lastmondata.objects.filter(bay_id=bayid).values('occupiedrate')
         tueobj = Lasttuedata.objects.filter(bay_id=bayid).values('occupiedrate')
         wedobj = Lastweddata.objects.filter(bay_id=bayid).values('occupiedrate')
@@ -89,39 +84,27 @@ def lastWeekdata(request):
                 ratelist = ratelist + [eachrate]
         # print(ratelist)
         problistdict = {'prob': ratelist}
-        problistdictjson = json.dumps(problistdict)
+        problistdictjson = json.dumps(problistdict) # turn list to the form of JSON
 
     return HttpResponse(problistdictjson,content_type = "application/json")
 
+
+# recommend parking lots base on users' locations
 @csrf_exempt
 def suggestbays(request):
     import ast
     dict = {}
     reqdict = {}
     if request.method == 'POST':
-        # req = json.loads(request.body)
-        # streetmarkerliststr = req['baylist']
-        # period_h = req['period_h']
-        # period_m = req['period_h']
-
+  
+        # get the key values in requests
         streetmarkerliststr = request.POST.get('baylist')
         period_h = int(request.POST.get('period_h'))
         period_m = int(request.POST.get('period_m'))
 
-        print(streetmarkerliststr)
-        print(type(streetmarkerliststr))
-        print(period_h)
-        print(type(period_h))
-        print(period_m)
-        print(type(period_m))
-
         streetmarkerlist = json.loads(streetmarkerliststr)
-        print(streetmarkerlist)
-        print(type(streetmarkerlist))
-        print(streetmarkerlist[0])
-
-
-        # 处理时间 process time
+        
+        # process time, calculate the estimated time when the user arrive the destination
         currentweekday = int(time.strftime('%w', time.localtime(time.time())))
         currenttimehour = int(time.strftime('%H', time.localtime(time.time())))
         currenttimeminute = int(time.strftime('%M', time.localtime(time.time())))
@@ -137,28 +120,18 @@ def suggestbays(request):
         if currentweekday >6:
             currentweekday = currentweekday%7
 
-        # 找相对应的block find corresponding block
+        # find corresponding blocks of the street makers inthe baylist
         listlength = len(streetmarkerlist)
-        print(listlength)
-
         streetmarkerlistindex = -1
         list2 = []
+        # make a list of parking possibilities of the street markers in the baylist
         for eachbayid in streetmarkerlist:
             blockidObject = Blockquery.objects.filter(streemarker=eachbayid)
-            print(blockidObject)
             if blockidObject.exists():
                 streetmarkerlistindex += 1
-                print("streetmarkerlistindex :" + str(streetmarkerlistindex))
-                # print("right street marker!")
                 blockidObject_values = blockidObject.values_list
-                # print(blockidObject_values)
                 blockidObject_blockid = blockidObject.values('blockid')[0]['blockid']
-                #
-                # print(blockidObject_blockid)
-                # print(type(blockidObject_blockid))
-
                 predictObject = Weekly2.objects.filter(blockid=blockidObject_blockid,weekday=currentweekday,period=newperiod_h)
-                # print(predictObject)
                 predictedValues = predictObject.values('predicted')[0]['predicted']
                 print(predictedValues)
                 print(type(predictedValues))
@@ -166,55 +139,44 @@ def suggestbays(request):
                 predictedValues = 1
                 print('streetmarker does not exist, no predicted data')
             list2.append(predictedValues)
-            print(list2)
+            
 
-        # sort the values, pick up top 3 with smallest values
+        # sort the values(opposite to the parking possibilities), pick up top 3 with smallest values
+        # the smaller the value is , the higher the parking possibility is
         tmp = {}
         for i in range(0, len(list2)):
             tmp[i] = [list2[i], streetmarkerlist[i]]
         tmp_sorted = sorted(tmp.items(), key=lambda x: x[1][0])
         lowest3 = tmp_sorted[0:3]
 
-        lowest1 = tmp_sorted[0]
-        print("lowest1")
-        print(lowest1)
-
+        
+        lowest1 = tmp_sorted[0] # the list of street marker with the lowest value 
         lowest1blockidObject = Blockquery.objects.filter(streemarker=eachbayid)
         lowest1blockidObject_blockid = lowest1blockidObject.values('blockid')[0]['blockid']
-        # print(lowest1blockidObject_blockid)
         streetmarkersObject = Blockquery.objects.filter(blockid=lowest1blockidObject_blockid)
         streetmarkers = streetmarkersObject.values('streemarker')
-        print(type(streetmarkers))
-        print("streetmarkers")
-        print(streetmarkers)
-
+   
         blockstreetmarkerlist = []
         for each in streetmarkers:
             eachstreetmarker = each['streemarker']
             blockstreetmarkerlist.append(eachstreetmarker)
-            print(eachstreetmarker)
-        print("blockstreetmarkerlist")
-        print(blockstreetmarkerlist)
-
+   
         blockstreetmarkerdict ={}
         blockstreetmarkerdict['sortedstreetmarkers'] = blockstreetmarkerlist
         blockstreetmarkerjson = json.dumps(blockstreetmarkerdict)
 
 
 
-
+        # return to the street markers in the block with the highest parking possibilities
         sortedStreetMarkerlist =[]
         for each in lowest3:
             streetmarker = each[1][1]
             sortedStreetMarkerlist.append(streetmarker)
-        print(sortedStreetMarkerlist)
 
         sortedStreetMarkerdict = {}
         sortedStreetMarkerdict['sortedstreetmarkers'] = sortedStreetMarkerlist
-        print(sortedStreetMarkerdict)
         sortedStreetMarkerdictjson = json.dumps(sortedStreetMarkerdict)
-        print(sortedStreetMarkerdictjson)
-        print(type(sortedStreetMarkerdictjson))
+       
 
         return HttpResponse(blockstreetmarkerjson,content_type= "application/json")
 
