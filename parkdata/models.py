@@ -7,7 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-
+# models of predicted data (not in used), version 1
 class Finetreepredict(models.Model):
     blockid = models.IntegerField(db_column='BlockId')  # Field name made lowercase.
     period_h = models.IntegerField(db_column='Period_h')  # Field name made lowercase.
@@ -19,7 +19,7 @@ class Finetreepredict(models.Model):
         managed = False
         db_table = 'FineTreePredict'
 
-
+# models for realtime data
 class Parking(models.Model):
     bay_id = models.IntegerField()
     lat = models.CharField(max_length=25)
@@ -45,7 +45,7 @@ class Weekly1(models.Model):
         managed = False
         db_table = 'Weekly1'
 
-
+# models for predicted data (in use),version2
 class Weekly2(models.Model):
     id = models.IntegerField(db_column='Id', primary_key=True)  # Field name made lowercase.
     blockid = models.IntegerField(db_column='BlockId')  # Field name made lowercase.
@@ -124,7 +124,7 @@ class AuthUserUserPermissions(models.Model):
         db_table = 'auth_user_user_permissions'
         unique_together = (('user', 'permission'),)
 
-
+# models for look up table
 class Blockquery(models.Model):
     deviceid = models.IntegerField(db_column='DeviceId')  # Field name made lowercase.
     streemarker = models.CharField(db_column='StreeMarker', max_length=40)  # Field name made lowercase.
@@ -178,7 +178,7 @@ class DjangoSession(models.Model):
         managed = False
         db_table = 'django_session'
 
-
+# models for historical data in friday
 class Lastfridata(models.Model):
     id = models.IntegerField(primary_key=True)
     bay_id = models.IntegerField()
@@ -188,7 +188,7 @@ class Lastfridata(models.Model):
         managed = False
         db_table = 'lastFriData'
 
-
+# models for historical data in monday
 class Lastmondata(models.Model):
     id = models.IntegerField(primary_key=True)
     bay_id = models.IntegerField()
@@ -198,7 +198,7 @@ class Lastmondata(models.Model):
         managed = False
         db_table = 'lastMonData'
 
-
+# models for historical data in saturday
 class Lastsatdata(models.Model):
     id = models.IntegerField(primary_key=True)
     bay_id = models.IntegerField()
@@ -208,7 +208,7 @@ class Lastsatdata(models.Model):
         managed = False
         db_table = 'lastSatData'
 
-
+# models for historical data in sunday
 class Lastsundata(models.Model):
     id = models.IntegerField(primary_key=True)
     bay_id = models.IntegerField()
@@ -218,7 +218,7 @@ class Lastsundata(models.Model):
         managed = False
         db_table = 'lastSunData'
 
-
+# models for historical data in thursday
 class Lastthudata(models.Model):
     id = models.IntegerField(primary_key=True)
     bay_id = models.IntegerField()
@@ -228,7 +228,7 @@ class Lastthudata(models.Model):
         managed = False
         db_table = 'lastThuData'
 
-
+# models for historical data in tuesday
 class Lasttuedata(models.Model):
     id = models.IntegerField(primary_key=True)
     bay_id = models.IntegerField()
@@ -238,7 +238,7 @@ class Lasttuedata(models.Model):
         managed = False
         db_table = 'lastTueData'
 
-
+# models for historical data in wednesday
 class Lastweddata(models.Model):
     id = models.IntegerField(primary_key=True)
     bay_id = models.IntegerField()
